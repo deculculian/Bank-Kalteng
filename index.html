@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk Bank Kalteng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" type="image/png" href="icon-bank-kalteng.png">
+  <style>
+    /* CSS Variables untuk konsistensi warna */
+    :root {
+      --primary-green: #19815f; /* Warna hijau utama dari tombol */
+      --secondary-green: #146a4e; /* Hijau lebih gelap untuk hover */
+      --accent-orange: #da832d; /* Warna orange untuk tombol kembali */
+      --text-dark: #333;
+      --text-light: #666;
+      --bg-light: #f0f2f5; /* Latar belakang abu-abu terang */
+      --bg-white: #ffffff;
+      --border-light: #e0e0e0;
+      --footer-bg: #366977; /* Warna biru-hijau tua dari footer sebelumnya */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif; /* Menggunakan Poppins */
+      background-image: url('gedung-bank-kalteng.png'); /* Path ke gambar background */
+      background-size: cover; /* Membuat gambar menutupi seluruh area background */
+      background-position: center; /* Memposisikan gambar di tengah */
+      background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+      background-attachment: fixed; /* Membuat background tetap saat scroll */
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-top: 70px; /* Ruang untuk header fixed */
+      box-sizing: border-box;
+      min-height: 100vh; /* Memastikan body menutupi seluruh tinggi viewport */
+      position: relative; /* Untuk footer fixed */
+    }
+
+    header {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 10; /* Memastikan logo berada di atas konten lain */
+      /* Properti ini dihilangkan agar latar belakang area logo transparan sepenuhnya */
+      /* background-color: rgba(255, 255, 255, 0.8); */
+      /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+      padding: 5px; /* Menjaga sedikit padding di sekitar logo */
+      border-radius: 8px; /* Menjaga sudut membulat jika ada padding */
+    }
+
+    header img {
+      height: 40px; /* Sesuaikan ukuran logo */
+    }
+
+    .watermark {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 0.45em; /* Ukuran font lebih kecil */
+      color: rgba(0, 0, 0, 0.2); /* Warna abu-abu transparan 60% */
+      z-index: 100; /* Pastikan di atas semua elemen lain */
+      font-weight: 500;
+      /* background-color: rgba(255, 255, 255, 0.6); -- Latar belakang dihapus */
+      padding: 5px 8px; /* Padding dipertahankan jika ada kebutuhan ruang, tapi tidak akan terlihat tanpa background */
+      border-radius: 5px; /* Border-radius dipertahankan, tapi tidak akan terlihat tanpa background */
+    }
+
+    .page {
+      display: none;
+      padding: 20px 20px 80px; /* Padding bawah lebih besar karena footer fixed */
+      box-sizing: border-box;
+      animation: fadeIn 0.5s ease-out; /* Animasi fade-in saat halaman muncul */
+      margin: 20px auto; /* Membuat ruang di sekitar konten */
+      max-width: 600px; /* Membatasi lebar konten agar tidak terlalu lebar di layar besar */
+      background-color: rgba(255, 255, 255, 0.9); /* Latar belakang semi-transparan untuk konten */
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding-top: 40px; /* Ruang tambahan di atas konten karena header */
+    }
+
+    .active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-container {
+      /* Style logo container dihilangkan dari halaman-halaman karena logo sudah di header utama */
+      display: none; /* Menyembunyikan div logo-container lama yang ada di setiap halaman */
+    }
+
+    h2 {
+      font-weight: 700; /* Lebih tebal */
+      font-size: 1.8em; /* Ukuran font lebih besar */
+      color: var(--primary-green);
+      margin-top: 15px;
+      margin-bottom: 40px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h2::after { /* Garis bawah dekoratif */
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--accent-orange);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px; /* Jarak antar tombol */
+      margin-top: 20px;
+    }
+
+    .button {
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 18px 25px; /* Padding lebih besar */
+      font-size: 1.1em; /* Ukuran font lebih besar */
+      border-radius: 30px; /* Sudut lebih membulat */
+      cursor: pointer;
+      font-weight: 600; /* Lebih tebal */
+      display: flex; /* Untuk ikon dan teks sejajar */
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transisi halus */
+      text-decoration: none; /* Menghilangkan underline jika diubah jadi <a> */
+      text-align: center; /* Pastikan teks di tengah */
+    }
+
+    .button i {
+      margin-right: 10px; /* Jarak antara ikon dan teks */
+      font-size: 1.2em;
+    }
+
+    .button:hover {
+      background-color: var(--secondary-green);
+      transform: translateY(-3px); /* Efek sedikit naik */
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .button:active {
+      transform: translateY(0); /* Kembali ke posisi semula saat diklik */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style khusus untuk tombol kembali */
+    .back-button {
+      background-color: var(--accent-orange);
+      margin-top: 35px;
+      font-size: 1em; /* Ukuran sedikit lebih kecil dari tombol utama */
+      padding: 15px 25px;
+      width: 80%; /* Sedikit lebih kecil dari tombol utama */
+      max-width: 350px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .back-button:hover {
+      background-color: #c47528; /* Orange lebih gelap */
+    }
+
+    .product-description {
+      text-align: justify; /* Teks deskripsi rata kiri-kanan */
+      margin-top: 30px;
+      margin-bottom: 20px;
+      padding: 0 15px; /* Sedikit padding di sisi untuk keterbacaan */
+      color: var(--text-dark);
+      font-size: 0.95em;
+    }
+    .product-description p {
+        margin-bottom: 1em;
+    }
+    .product-description ul {
+        text-align: left; /* Poin-poin rata kiri */
+        margin-left: 20px;
+        margin-bottom: 1em;
+    }
+    .product-description ul li {
+        margin-bottom: 0.5em;
+    }
+    .product-description h3 {
+        color: var(--primary-green);
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        font-size: 1.1em;
+    }
+
+
+    .footer {
+      background-color: var(--footer-bg);
+      height: 60px; /* Tinggi footer lebih besar */
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Bayangan di atas footer */
+    }
+
+    .footer p {
+      color: white;
+      font-weight: 500; /* Sedang */
+      margin: 0;
+      font-size: 0.95em;
+    }
+
+    /* Responsif untuk layar besar */
+    @media (min-width: 769px) {
+      body {
+        padding-top: 80px; /* Ruang untuk header */
+      }
+      header {
+        top: 20px;
+        left: 20px;
+        padding: 8px; /* Padding sedikit lebih besar di desktop */
+        border-radius: 10px;
+      }
+      header img {
+        height: 50px; /* Ukuran logo lebih besar di desktop */
+      }
+      .watermark {
+        top: 20px;
+        right: 20px;
+        font-size: 0.75em; /* Menyesuaikan ukuran font sedikit lebih besar untuk desktop agar tetap terbaca */
+        padding: 0; /* Padding dihapus karena tidak ada background */
+      }
+      .page {
+        padding: 40px 20px 80px;
+        margin: 30px auto;
+        max-width: 700px;
+        padding-top: 50px;
+      }
+
+      h2 {
+        font-size: 2.2em;
+        margin-bottom: 50px;
+      }
+
+      .button {
+        font-size: 1.2em;
+        padding: 20px 35px;
+        max-width: 500px;
+      }
+
+      .back-button {
+        padding: 18px 30px;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark">
+    creator : helloluluilm@gmail.com
+  </div>
+
+  <header>
+    <img src="logo-bank-kalteng.png" alt="Logo Bank Kalteng">
+  </header>
+
+  <div id="page-beranda" class="page active">
+    <h2>Pilih Kategori Produk</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-perorangan')">
+        <i class="fas fa-user"></i> Produk Perorangan
+      </button>
+      <button class="button" onclick="showPage('page-nonperorangan')">
+        <i class="fas fa-building"></i> Produk Non-perorangan
+      </button>
+    </div>
+  </div>
+
+  <div id="page-perorangan" class="page">
+    <h2>Produk Perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+        <i class="fas fa-wallet"></i> Giro, Tabungan & Deposito
+      </button>
+      <button class="button" onclick="showPage('page-pinjaman-perorangan')">
+        <i class="fas fa-hand-holding-usd"></i> Pinjaman
+      </button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-beranda')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+    </button>
+  </div>
+
+  <div id="page-nonperorangan" class="page">
+    <h2>Produk Non-perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-giro-tabungan-deposito-nonperorangan')">
+        <i class="fas fa-university"></i> Giro, Tabungan & Deposito
+      </button>
+      <button class="button" onclick="showPage('page-pinjaman-nonperorangan')">
+        <i class="fas fa-briefcase"></i> Pinjaman
+      </button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-beranda')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+    </button>
+  </div>
+
+  <div id="page-giro-tabungan-deposito-perorangan" class="page">
+    <h2>Giro, Tabungan & Deposito Perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-deposito-fleksibel-detail')">Deposito Fleksibel</button>
+      <button class="button" onclick="showPage('page-tabungan-taheta-detail')">Tabungan Taheta</button>
+      <button class="button" onclick="showPage('page-tabungan-simpeda-detail')">Tabungan Simpeda</button>
+      <button class="button" onclick="showPage('page-deposito-detail')">Deposito</button>
+      <button class="button" onclick="showPage('page-tabungan-simpel-detail')">Tabungan Simpel</button>
+      <button class="button" onclick="showPage('page-tabunganku-detail')">TabunganKu</button>
+      <button class="button" onclick="showPage('page-giro-perorangan-detail')">Giro Perorangan</button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-pinjaman-perorangan" class="page">
+    <h2>Pinjaman Perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-kur-detail')">Kredit Usaha Rakyat</button>
+      <button class="button" onclick="showPage('page-kredit-komersial-non-konstruksi-detail')">Kredit Usaha Komersial Non Konstruksi</button>
+      <button class="button" onclick="showPage('page-kredit-komersial-konstruksi-detail')">Kredit Usaha Komersial Konstruksi</button>
+      <button class="button" onclick="showPage('page-kpr-umum-detail')">Kredit Pemilikan Rumah Umum</button>
+      <button class="button" onclick="showPage('page-kpr-flpp-detail')">Kredit Pemilikan Rumah Sejahtera FLPP</button>
+      <button class="button" onclick="showPage('page-kumk-sup005-detail')">Kredit Usaha Mikro dan Kecil SUP 005</button>
+      <button class="button" onclick="showPage('page-cash-collateral-detail')">Kredit Cash Collateral</button>
+      <button class="button" onclick="showPage('page-multiguna-konsumtif-detail')">Kredit Multiguna Konsumtif</button>
+      <button class="button" onclick="showPage('page-multiguna-produktif-detail')">Kredit Multiguna Produktif</button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Produk Perorangan
+    </button>
+  </div>
+
+  <div id="page-giro-tabungan-deposito-nonperorangan" class="page">
+    <h2>Giro, Tabungan & Deposito Non-perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-deposito-fleksibel-detail')">Deposito Fleksibel</button>
+      <button class="button" onclick="showPage('page-tabungan-simpeda-detail')">Tabungan Simpeda</button>
+      <button class="button" onclick="showPage('page-deposito-detail')">Deposito</button>
+      <button class="button" onclick="showPage('page-giro-perorangan-detail')">Giro</button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-nonperorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Produk Non-perorangan
+    </button>
+  </div>
+
+  <div id="page-pinjaman-nonperorangan" class="page">
+    <h2>Pinjaman Non-perorangan</h2>
+    <div class="button-group">
+      <button class="button" onclick="showPage('page-kur-detail')">Kredit Usaha Rakyat</button>
+      <button class="button" onclick="showPage('page-kredit-komersial-non-konstruksi-detail')">Kredit Usaha Komersial Non Konstruksi</button>
+      <button class="button" onclick="showPage('page-kredit-komersial-konstruksi-detail')">Kredit Usaha Komersial Konstruksi</button>
+      <button class="button" onclick="showPage('page-kumk-sup005-detail')">Kredit Usaha Mikro dan Kecil SUP 005</button>
+      <button class="button" onclick="showPage('page-cash-collateral-detail')">Kredit Cash Collateral</button>
+      <button class="button" onclick="showPage('page-kredit-pemerintah-daerah-detail')">Kredit Kepada Pemerintah Daerah</button>
+      <button class="button" onclick="showPage('page-kredit-sindikasi-detail')">Kredit Sindikasi</button>
+      <button class="button" onclick="showPage('page-garansi-bank-detail')">Garansi Bank</button>
+    </div>
+    <button class="button back-button" onclick="showPage('page-nonperorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Produk Non-perorangan
+    </button>
+  </div>
+
+  <div id="page-deposito-fleksibel-detail" class="page">
+    <h2>Deposito Fleksibel</h2>
+    <div class="product-description">
+      <p>Deposito Fleksibel adalah simpanan berjangka yang fleksibel dari Bank Kalteng, diperuntukkan bagi nasabah Perorangan, Pihak Swasta, BUMN, BUMD, dan Dana Pensiun dalam mata uang Rupiah. Keunggulan utama dari Deposito Fleksibel adalah kemampuannya untuk dicairkan sewaktu-waktu tanpa dikenakan biaya penalti. Selain itu, deposito ini menawarkan tingkat suku bunga yang kompetitif dan tersedia dalam berbagai pilihan jangka waktu, yaitu 1, 3, 6, dan 12 bulan. Perpanjangan deposito juga mudah dengan sistem Automatic Roll Over (ARO) tanpa perlu mengganti bilyet. Bunga deposito dapat ditransfer ke rekening tabungan atau giro nasabah, atau ditambahkan ke pokok deposito, dan dijamin oleh Lembaga Penjamin Simpanan (LPS) sesuai syarat dan ketentuan berlaku.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-tabungan-taheta-detail" class="page">
+    <h2>Tabungan Taheta</h2>
+    <div class="product-description">
+      <p>Tabungan Taheta, yang merupakan singkatan dari "Tabungan Hari Esok Terencana", adalah produk tabungan yang ditawarkan oleh Bank Kalteng. Produk ini dirancang untuk nasabah perorangan maupun non-perorangan di Kalimantan Tengah, bertujuan untuk memberikan kenyamanan dan keamanan bagi dana mereka dalam mempersiapkan masa depan yang lebih baik.</p>
+      <ul>
+        <li>Mudah Dibuka: Hanya membutuhkan setoran awal minimal Rp. 100.000.</li>
+        <li>Akses Mudah: Pembukaan rekening, setoran, dan penarikan dapat dilakukan di semua kantor Bank Kalteng di seluruh Kalimantan Tengah.</li>
+        <li>Transaksi Nyaman: Dilengkapi dengan kartu ATM yang bisa digunakan di ATM Bank Kalteng dan ATM Bersama. Transaksi juga bisa lewat teller Bank Pembangunan Daerah di seluruh Indonesia.</li>
+        <li>Suku Bunga Kompetitif: Bunga dihitung harian, jadi semakin besar tabungan, semakin besar keuntungan yang didapat.</li>
+        <li>Bisa Jadi Jaminan Pinjaman: Saldo di rekening Tabungan Taheta bisa digunakan sebagai jaminan untuk pinjaman di Bank Kalteng, sesuai ketentuan yang berlaku.</li>
+        <li>Tarik Tunai ATM Gratis: Tidak ada biaya untuk tarik tunai di ATM Bank Kalteng.</li>
+        <li>Program Undian Berhadiah: Pemegang rekening otomatis ikut undian berhadiah tahunan.</li>
+      </ul>
+      <p>Suku bunga Tabungan Taheta bervariasi berdasarkan nominal saldo, mulai dari 0% untuk saldo kurang dari Rp. 50.000 hingga 1.50% untuk saldo Rp. 1 miliar atau lebih.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-tabungan-simpeda-detail" class="page">
+    <h2>Tabungan Simpeda</h2>
+    <div class="product-description">
+      <p>Tabungan Simpeda adalah produk unggulan dari Bank Pembangunan Daerah, termasuk Bank Kalteng. Ini adalah rekening tabungan yang dirancang untuk memudahkan transaksi perbankan Bapak/Ibu. Layanan ini didukung jaringan online yang luas, termasuk ATM Bersama, kantor cabang, sub-cabang, dan kantor kas, sehingga mudah diakses kapan saja dan di mana saja.</p>
+      <p>Selain kemudahan transaksi, Tabungan Simpeda juga punya program hadiah menarik, termasuk undian nasional yang diadakan dua kali setahun di antara semua Bank Pembangunan Daerah se-Indonesia dengan hadiah miliaran rupiah. Bapak/Ibu juga bisa dapat kartu ATM dari Bank Kalteng saat pembukaan rekening, yang bisa dipakai untuk tarik tunai dan transfer di ATM Bersama seluruh Indonesia.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-deposito-detail" class="page">
+    <h2>Deposito</h2>
+    <div class="product-description">
+      <p>Deposito adalah pilihan investasi yang aman, terpercaya, dan menguntungkan yang ditawarkan Bank Kalteng. Deposito ini dijamin oleh Pemerintah karena Bank Kalteng adalah peserta penjaminan Pemerintah.</p>
+      <h3>Ada dua jenis Deposito yang tersedia:</h3>
+      <ul>
+        <li>Deposito Berjangka: Pilihan jangka waktu 1, 3, 6, 12, atau 24 bulan.</li>
+        <li>Deposito On Call (DOC): Pilihan jangka waktu lebih pendek, yaitu 7 hari, 14 hari, dan 21 hari.</li>
+      </ul>
+      <p>Bapak/Ibu bisa memperpanjang deposito secara otomatis (ARO), dan bisa memilih bunga deposito ditambahkan ke pokok deposito atau ditransfer ke rekening Giro atau Tabungan SIMPEDA/TAHETA. Suku bunga deposito kompetitif dan dihitung harian. Selain itu, deposito juga bisa dijadikan jaminan untuk Kredit Agunan Deposito.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-tabungan-simpel-detail" class="page">
+    <h2>Tabungan Simpel</h2>
+    <div class="product-description">
+      <p>Tabungan SimPel adalah rekening tabungan untuk para pelajar yang diterbitkan secara nasional oleh bank-bank di Indonesia. Tabungan ini punya syarat yang mudah dan sederhana dengan fitur menarik, tujuannya untuk mendidik dan mempermudah akses keuangan, serta mendorong kebiasaan menabung sejak kecil.</p>
+      <p>Tujuan utama produk ini antara lain:</p>
+      <ul>
+        <li>Meningkatkan pemahaman keuangan di kalangan siswa, orang tua, dan lingkungan sekolah.</li>
+        <li>Mempermudah akses siswa terhadap layanan keuangan yang terjangkau dan menarik.</li>
+        <li>Membiasakan siswa untuk menabung.</li>
+        <li>Mengajari siswa cara membangun dan mengembangkan kekayaan mereka sendiri melalui menabung.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-tabunganku-detail" class="page">
+    <h2>TabunganKu</h2>
+    <div class="product-description">
+      <p>TabunganKu adalah produk tabungan untuk pribadi yang ditawarkan oleh Bank Kalteng. Tabungan ini dirancang dengan syarat yang mudah dan ringan, serta diterbitkan bersama oleh bank-bank di Indonesia untuk meningkatkan kebiasaan menabung dan kesejahteraan masyarakat.</p>
+      <ul>
+        <li>Bebas Biaya Administrasi: Tidak ada biaya administrasi bulanan.</li>
+        <li>Setoran Awal Ringan: Setoran awal minimal Rp 20.000, dan setoran selanjutnya minimal Rp 10.000.</li>
+        <li>Saldo Minimum: Saldo minimum yang harus ada di rekening adalah Rp 20.000.</li>
+        <li>Biaya Jika Tidak Aktif: Jika rekening tidak ada transaksi selama 6 bulan berturut-turut, akan dikenakan biaya penalti Rp 2.000 per bulan.</li>
+        <li>Penutupan Rekening: Jika saldo di bawah Rp 20.000, rekening akan ditutup otomatis oleh sistem, dan sisa saldo akan digunakan untuk biaya penutupan (biaya penutupan rekening adalah Rp 20.000).</li>
+        <li>Penarikan Tunai: Jumlah penarikan minimum di konter adalah Rp 100.000.</li>
+        <li>Bunga: Bunga dihitung harian dan tidak progresif.</li>
+        <li>Batasan Transaksi: Penarikan tunai dan transfer hanya bisa dilakukan di cabang tempat rekening dibuka, dan penarikan dibatasi satu kali sehari.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-giro-perorangan-detail" class="page">
+    <h2>Giro Perorangan</h2>
+    <div class="product-description">
+      <p>Giro adalah simpanan dana pihak ketiga dalam Rupiah yang bisa ditarik kapan saja oleh Bapak/Ibu menggunakan cek, bilyet giro, atau perintah pembayaran lain yang ditentukan oleh Bank Kalteng. Giro menawarkan suku bunga harian yang progresif dan kompetitif, artinya semakin besar saldo rekening Bapak/Ibu, semakin tinggi bunga yang akan didapat.</p>
+      <p>Setoran dan penarikan bisa dilakukan selama jam kasir pada hari kerja (Senin-Jumat) di semua Kantor Cabang atau Cabang Pembantu Bank Kalteng. Bapak/Ibu akan mendapatkan buku cek/bilyet giro beserta tanda terima. Jaringan online Bank Kalteng yang luas dengan lebih dari 61 kantor di seluruh Kalimantan Tengah memudahkan Bapak/Ibu dalam bertransaksi.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-giro-tabungan-deposito-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Giro, Tabungan & Deposito Perorangan
+    </button>
+  </div>
+
+  <div id="page-kur-detail" class="page">
+    <h2>Kredit Usaha Rakyat (KUR)</h2>
+    <div class="product-description">
+      <p>Ini adalah pinjaman khusus dari Bank Kalteng untuk Bapak/Ibu pelaku Usaha Mikro, Kecil, dan Menengah (UMKM), baik yang usaha pribadi, kelompok, atau badan usaha. Tujuannya agar Bapak/Ibu bisa mengembangkan usaha, baik untuk membeli alat-alat atau menambah modal usaha. Usaha yang bisa dibiayai beragam, mulai dari pertanian, perikanan, industri kecil, konstruksi, perdagangan, sampai jasa-jasa.</p>
+      <h3>Jenis Pinjaman:</h3>
+      <ul>
+        <li>KUR Mikro: Maksimal pinjaman Rp 50 juta.</li>
+        <li>KUR Ritel: Pinjaman di atas Rp 50 juta sampai Rp 500 juta.</li>
+      </ul>
+      <p>Jaminan bisa usaha yang Bapak/Ibu jalankan itu sendiri, atau bisa juga tambahan jaminan seperti tanah, bangunan, deposito, kendaraan, atau emas.</p>
+      <ul>
+        <li>Bunga: Suku bunga rendah, hanya 6% per tahun.</li>
+        <li>Jangka Waktu: Untuk modal kerja bisa sampai 3-4 tahun, untuk investasi (beli aset) bisa sampai 5-7 tahun.</li>
+      </ul>
+      <h3>Syarat Umum:</h3>
+      <ul>
+        <li>Warga Negara Indonesia.</li>
+        <li>Memiliki usaha yang sudah berjalan minimal 6 bulan.</li>
+        <li>Memiliki KTP, KK, NPWP, dan izin usaha (bisa juga surat keterangan usaha dari kelurahan/desa untuk usaha mikro).</li>
+        <li>Bapak/Ibu tidak boleh punya masalah kredit di bank lain.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kredit-komersial-non-konstruksi-detail" class="page">
+    <h2>Kredit Usaha Komersial Non Konstruksi</h2>
+    <div class="product-description">
+      <p>Kredit Usaha Komersial Non Konstruksi ini adalah pinjaman dari Bank Kalteng untuk Bapak/Ibu pelaku Usaha Mikro, Kecil, dan Menengah (UMKM), baik usaha pribadi, kelompok, maupun badan usaha seperti koperasi. Tujuannya adalah untuk membantu Bapak/Ibu mengembangkan usaha, baik untuk kebutuhan modal kerja atau untuk investasi (misal beli aset), selama tidak bertentangan dengan aturan yang berlaku.</p>
+      <h3>Berapa Besar Pinjamannya (Plafon Kredit):</h3>
+      <ul>
+        <li>Untuk usaha Mikro (biasanya usaha sangat kecil) di sektor perdagangan: Pinjaman sampai Rp 2,5 juta.</li>
+        <li>Untuk usaha Mikro lainnya: Pinjaman bisa sampai Rp 50 juta.</li>
+        <li>Untuk usaha Kecil: Pinjaman di atas Rp 50 juta sampai Rp 500 juta.</li>
+        <li>Untuk usaha Menengah: Pinjaman di atas Rp 500 juta sampai Rp 5 miliar.</li>
+      </ul>
+      <h3>Apa Saja yang Bisa Dijadikan Jaminan (Agunan):</h3>
+      <ul>
+        <li>Jaminan utamanya adalah objek usaha yang Bapak/Ibu biayai itu sendiri.</li>
+        <li>Bisa juga ditambah jaminan lain seperti harta bergerak/tidak bergerak (tanah dan bangunan), Deposito Berjangka, Kendaraan, mesin dan peralatan, atau logam mulia (emas).</li>
+      </ul>
+      <h3>Berapa Lama Waktu Pinjamannya (Jangka Waktu) dan Bunganya:</h3>
+      <ul>
+        <li>Untuk modal kerja: Maksimal 3 tahun (bisa diperpanjang).</li>
+        <li>Untuk kredit investasi (misal beli aset): Maksimal 5 tahun (bisa diperpanjang).</li>
+        <li>Khusus modal kerja mikro sektor perdagangan: Maksimal 1 tahun.</li>
+        <li>Untuk investasi pembangunan Ruko atau SPBU: Maksimal 10 tahun, sudah termasuk masa tenggang (grace period).</li>
+        <li>Suku bunga ringan dan bersaing.</li>
+      </ul>
+      <h3>Syarat-syarat Pengajuan (Persyaratan):</h3>
+      <ul>
+        <li>Bapak/Ibu adalah Warga Negara Indonesia.</li>
+        <li>Usaha sudah berjalan sekurang-kurangnya 1 tahun (untuk usaha mikro dan kecil) atau 2 tahun (untuk usaha menengah).</li>
+        <li>Memiliki identitas diri lengkap (KTP, Kartu Keluarga, Surat Nikah/Cerai/Surat Kematian, Kartu NPWP, KTP suami/istri).</li>
+        <li>Memiliki izin usaha dari instansi yang berwenang (seperti SIUP, TDP, SITU, HO).</li>
+        <li>Untuk usaha mikro, cukup dengan Surat Keterangan Usaha dari Kelurahan/Kepala Desa.</li>
+        <li>Jika usaha berbentuk badan hukum (misal PT, CV), perlu Akta Pendirian Perusahaan, Akta Perubahan Terakhir, dan surat pengesahan dari Kementerian Hukum dan HAM.</li>
+        <li>Menyediakan 2 lembar pas foto terbaru ukuran 4x6.</li>
+        <li>Menyediakan laporan keuangan (neraca dan laba rugi) 2 tahun terakhir (khusus usaha kecil dan menengah).</li>
+        <li>Menyediakan dokumen lain yang terkait usaha (misal kontrak-kontrak, kerjasama dengan supplier).</li>
+        <li>Tidak sedang menerima pinjaman produktif dari bank lain untuk usaha yang sama.</li>
+        <li>Tidak termasuk dalam daftar hitam atau punya masalah kredit di Bank Indonesia (SID).</li>
+        <li>Pinjaman ini diperbolehkan untuk take over (mengambil alih) kredit dari bank lain.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kredit-komersial-konstruksi-detail" class="page">
+    <h2>Kredit Usaha Komersial Konstruksi</h2>
+    <div class="product-description">
+      <p>Kredit Usaha Komersial Konstruksi ini adalah pinjaman dari Bank Kalteng untuk Bapak/Ibu pelaku usaha di bidang konstruksi (pembangunan). Ini berlaku untuk usaha mikro, kecil, menengah, sampai perusahaan besar (korporasi). Tujuannya untuk membantu mengembangkan usaha jasa konstruksi Bapak/Ibu, khususnya untuk kebutuhan modal kerja (dana operasional) yang dananya bisa berasal dari proyek pemerintah (APBD/APBN) atau proyek swasta.</p>
+      <h3>Berapa Besar Pinjamannya (Plafon Kredit):</h3>
+      <ul>
+        <li>Untuk usaha Mikro: Pinjaman bisa sampai Rp 50 juta.</li>
+        <li>Untuk usaha Kecil: Pinjaman di atas Rp 50 juta sampai Rp 500 juta.</li>
+        <li>Untuk usaha Menengah: Pinjaman di atas Rp 500 juta sampai Rp 5 miliar.</li>
+        <li>Untuk perusahaan besar (Korporasi): Pinjaman di atas Rp 5 miliar.</li>
+      </ul>
+      <h3>Apa Saja yang Bisa Dijadikan Jaminan (Agunan):</h3>
+      <ul>
+        <li>Jaminan utamanya adalah proyek atau usaha konstruksi yang Bapak/Ibu biayai itu sendiri.</li>
+        <li>Bisa juga ditambah jaminan lain seperti harta bergerak/tidak bergerak (misal tanah, bangunan, atau aset lainnya).</li>
+      </ul>
+      <h3>Berapa Lama Waktu Pinjamannya (Jangka Waktu) dan Bunganya:</h3>
+      <ul>
+        <li>Waktu pinjaman disesuaikan dengan kebutuhan proyek.</li>
+        <li>Maksimal 1 tahun untuk sebagian besar proyek.</li>
+        <li>Tapi untuk proyek yang berjalan lebih dari satu tahun (proyek multi-years), jangka waktunya bisa lebih dari 1 tahun atau disesuaikan dengan lamanya proyek tersebut.</li>
+        <li>Suku bunganya ringan dan bersaing.</li>
+      </ul>
+      <h3>Syarat-syarat Pengajuan (Persyaratan):</h3>
+      <ul>
+        <li>Bapak/Ibu adalah Warga Negara Indonesia.</li>
+        <li>Usaha konstruksi Bapak/Ibu sudah berjalan minimal 6 bulan.</li>
+        <li>Punya izin usaha resmi dari instansi yang berwenang.</li>
+        <li>Punya dokumen identitas diri seperti KTP dan Kartu Keluarga.</li>
+        <li>Tidak sedang ada pinjaman usaha dari bank lain.</li>
+        <li>Tidak punya masalah pinjaman di bank lain (nama Bapak/Ibu bersih di catatan Bank Indonesia).</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kpr-umum-detail" class="page">
+    <h2>Kredit Pemilikan Rumah Umum</h2>
+    <div class="product-description">
+      <p>Pinjaman ini ditujukan bagi Bapak/Ibu yang berprofesi sebagai PNS/CPNS/BUMN/BUMD, TNI/Polri, pensiunan, wiraswasta, atau pengusaha dengan penghasilan minimal Rp 3 juta per bulan. Tujuannya adalah untuk membeli rumah, memindahkan KPR dari bank lain, atau membangun rumah di wilayah Kalimantan Tengah.</p>
+      <ul>
+        <li>Besar Pinjaman: Disesuaikan dengan kemampuan cicilan Bapak/Ibu, maksimal 80% dari gaji atau penghasilan bulanan.</li>
+        <li>Jaminan: Tanah dan bangunan yang sudah bersertifikat hak milik (SHM).</li>
+        <li>Jangka Waktu: Maksimal 15 tahun, disesuaikan dengan usia pensiun.</li>
+        <li>Bunga: Ringan dan bersaing.</li>
+      </ul>
+      <h3>Syarat Umum:</h3>
+      <ul>
+        <li>KTP, Kartu Keluarga, NPWP, Akta Nikah (jika sudah menikah).</li>
+        <li>Slip gaji yang sudah disahkan oleh bendaharawan gaji dan rekening gaji 3 bulan terakhir.</li>
+        <li>Bukti pembayaran uang muka rumah.</li>
+        <li>Surat keterangan pengambilan rumah dari developer/pribadi.</li>
+        <li>Fotokopi blok plan rumah yang akan dibeli.</li>
+        <li>Pas foto terbaru.</li>
+        <li>Bapak/Ibu tidak boleh punya masalah kredit di bank lain (cek BI Checking/SID Bank Indonesia).</li>
+        <li>Bangunan yang dijaminkan wajib diasuransikan terhadap kebakaran.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kpr-flpp-detail" class="page">
+    <h2>Kredit Pemilikan Rumah Sejahtera FLPP</h2>
+    <div class="product-description">
+      <p>Ini adalah program pinjaman rumah bersubsidi dari Pemerintah yang disalurkan oleh Bank Kalteng. Tujuannya untuk membantu Masyarakat Berpenghasilan Rendah (MBR) agar bisa punya rumah sebagai bagian dari Program Satu Juta Rumah.</p>
+      <h3>Siapa yang Bisa Mengajukan:</h3>
+      <ul>
+        <li>Bapak/Ibu MBR yang belum punya rumah.</li>
+        <li>Penghasilan maksimal Rp 8 juta per bulan (jika menikah) atau Rp 7 juta (jika belum menikah).</li>
+        <li>Tidak termasuk peserta program Tapera.</li>
+      </ul>
+      <p>Pinjaman ini untuk pembelian rumah tipe 36 m2 di wilayah Provinsi Kalimantan Tengah.</p>
+      <h3>Ketentuan KPR FLPP di Bank Kalteng:</h3>
+      <ul>
+        <li>Harga Rumah: Maksimal Rp 182 juta pada tahun 2025 (kecuali di Kabupaten Murung Raya dan Kabupaten Mahakam Ulu maksimal Rp 185 juta).</li>
+        <li>Uang Muka: Minimal 1% dari harga rumah, dan Bapak/Ibu akan dapat bantuan subsidi uang muka sebesar Rp 4 juta dari Pemerintah.</li>
+        <li>Bunga: Tetap 5% selama masa pinjaman.</li>
+        <li>Jangka Waktu: Maksimal 20 tahun, dengan batas usia maksimal 70 tahun saat kredit lunas.</li>
+        <li>Biaya-biaya: Bebas biaya asuransi dan biaya penilaian properti (appraisal). Ada biaya administrasi Rp 500.000 dan biaya provisi 0,5%.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kumk-sup005-detail" class="page">
+    <h2>Kredit Usaha Mikro dan Kecil SUP 005</h2>
+    <div class="product-description">
+      <p>Pinjaman ini khusus untuk Bapak/Ibu pelaku Usaha Mikro dan Kecil. Tujuannya untuk membantu mengembangkan usaha Bapak/Ibu, baik untuk menambah modal usaha atau membeli aset investasi, selama sesuai dengan aturan yang berlaku.</p>
+      <p>Pinjaman ini diperuntukkan bagi Bapak/Ibu, baik perorangan maupun badan usaha seperti koperasi.</p>
+      <h3>Berapa Besar Pinjamannya (Plafon Kredit):</h3>
+      <ul>
+        <li>Mikro: Pinjaman sampai Rp 50 juta.</li>
+        <li>Kecil: Pinjaman di atas Rp 50 juta sampai Rp 500 juta.</li>
+        <li>Menengah: Pinjaman di atas Rp 500 juta sampai Rp 5 miliar.</li>
+        <li>Korporasi: Pinjaman di atas Rp 5 miliar.</li>
+      </ul>
+      <h3>Apa Saja yang Bisa Dijadikan Jaminan (Agunan):</h3>
+      <ul>
+        <li>Jaminan utamanya adalah usaha yang Bapak/Ibu biayai itu sendiri.</li>
+        <li>Bisa juga ditambah jaminan lain seperti harta bergerak atau tidak bergerak.</li>
+      </ul>
+      <h3>Berapa Lama Waktu Pinjamannya (Jangka Waktu) dan Bunganya:</h3>
+      <ul>
+        <li>Untuk modal kerja: Maksimal 3 tahun (bisa diperpanjang).</li>
+        <li>Untuk kredit investasi (misal beli aset): Maksimal 5 tahun (bisa diperpanjang).</li>
+        <li>Suku bunga ringan dan bersaing.</li>
+        <li>Tidak ada biaya provisi.</li>
+      </ul>
+      <h3>Syarat-syarat Pengajuan (Persyaratan):</h3>
+      <ul>
+        <li>Bapak/Ibu adalah Warga Negara Indonesia.</li>
+        <li>Memiliki usaha yang sudah berjalan sekurang-kurangnya 1 tahun (untuk usaha mikro dan kecil) atau 2 tahun (untuk usaha menengah dan korporasi).</li>
+        <li>Memiliki izin usaha dari instansi yang berwenang. Untuk usaha mikro, cukup dengan Surat Keterangan Usaha dari Kelurahan/Kepala Desa.</li>
+        <li>Memiliki identitas diri lengkap seperti KTP dan Kartu Keluarga.</li>
+        <li>Tidak sedang menerima pinjaman produktif dari bank lain untuk usaha yang sama.</li>
+        <li>Tidak termasuk dalam daftar hitam atau punya masalah kredit di Bank Indonesia (cek Sistem Informasi Debitur/SID).</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-cash-collateral-detail" class="page">
+    <h2>Kredit Cash Collateral</h2>
+    <div class="product-description">
+      <p>Pinjaman ini khusus bagi Bapak/Ibu (perorangan atau badan usaha) yang memiliki simpanan berupa deposito di Bank Kalteng. Dana deposito tersebut akan menjadi jaminan pinjaman. Tujuannya bisa untuk investasi, modal kerja usaha, atau kebutuhan pribadi.</p>
+      <ul>
+        <li>Besar Pinjaman: Maksimal 90% dari jumlah deposito yang dijaminkan.</li>
+        <li>Jaminan: Deposito yang diterbitkan oleh Bank Kalteng.</li>
+        <li>Jangka Waktu: Maksimal 60 bulan (5 tahun) untuk investasi, dan maksimal 12 bulan (1 tahun) untuk modal kerja atau konsumtif. Jangka waktu bisa diperpanjang.</li>
+      </ul>
+      <h3>Syarat Umum:</h3>
+      <ul>
+        <li>Warga Negara Indonesia.</li>
+        <li>Memiliki KTP, Kartu Keluarga, NPWP, Akta Nikah (jika ada).</li>
+        <li>Memiliki bukti kepemilikan deposito.</li>
+        <li>Bapak/Ibu tidak boleh punya masalah kredit di bank lain (cek BI Checking/SID Bank Indonesia).</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-multiguna-konsumtif-detail" class="page">
+    <h2>Kredit Multiguna Konsumtif</h2>
+    <div class="product-description">
+      <p>Pinjaman ini bisa digunakan untuk berbagai keperluan pribadi atau konsumtif Bapak/Ibu, seperti membeli/membangun/merenovasi tempat tinggal, membeli kendaraan, membeli perabotan rumah tangga, membiayai pendidikan, dan berbagai kebutuhan konsumtif lainnya.</p>
+      <h3>Siapa yang Bisa Mengajukan:</h3>
+      <p>Pegawai Negeri Sipil (PNS), Calon PNS, Pensiunan, Pegawai Kantor Pusat, Pegawai BUMN/BUMD, Anggota DPRD, TNI, Polri, Kepala Daerah, Wakil Kepala Daerah, Pegawai Perusahaan, dan Pegawai Honorer.</p>
+      <ul>
+        <li>Besar Pinjaman: Disesuaikan dengan kemampuan Bapak/Ibu mencicil, maksimal 50% dari penghasilan bersih bulanan.</li>
+        <li>Jaminan: Tidak selalu diwajibkan bagi PNS, CPNS, Pensiunan, Kepala Daerah, Wakil Kepala Daerah, dan Anggota DPRD jika gaji disalurkan melalui Bank Kalteng dan pinjaman diasuransikan. Namun, jaminan wajib bagi Pegawai BUMN/BUMD, TNI, Polri, Pegawai Kantor Pusat, dan Pegawai Perusahaan.</li>
+        <li>Bunga: Ringan dan bersaing.</li>
+      </ul>
+      <h3>Jangka Waktu Pinjaman:</h3>
+      <ul>
+        <li>Maksimal 15 tahun untuk PNS, CPNS, TNI, Polri, Pegawai BUMN/BUMD, dan Pegawai Kantor Pusat (disesuaikan usia pensiun).</li>
+        <li>Maksimal 12 bulan untuk Pegawai Honorer (disesuaikan sisa masa kerja).</li>
+        <li>Maksimal 5 tahun untuk Anggota DPRD, Kepala Daerah, Wakil Kepala Daerah, dan Pegawai Perusahaan (disesuaikan masa tugas).</li>
+        <li>Bagi Pensiunan, bisa sampai 15 tahun dengan batas usia maksimal 70 tahun saat kredit lunas.</li>
+      </ul>
+      <h3>Syarat Umum:</h3>
+      <ul>
+        <li>Status kepegawaian dan penyerahan permohonan kredit yang diketahui atasan.</li>
+        <li>KTP, Kartu Keluarga, NPWP, Akta Nikah (jika sudah menikah).</li>
+        <li>Slip gaji yang sudah disahkan oleh bendaharawan gaji dan rekening gaji 3 bulan terakhir.</li>
+        <li>Bukti pembayaran uang muka rumah.</li>
+        <li>Surat keterangan pengambilan rumah dari developer/pribadi.</li>
+        <li>Fotokopi blok plan rumah yang akan dibeli.</li>
+        <li>Pas foto terbaru.</li>
+        <li>Bapak/Ibu tidak boleh punya masalah kredit di bank lain (cek BI Checking/SID Bank Indonesia).</li>
+        <li>Kredit ini juga diperbolehkan untuk mengambil alih pinjaman dari bank lain.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-multiguna-produktif-detail" class="page">
+    <h2>Kredit Multiguna Produktif</h2>
+    <div class="product-description">
+      <p>Pinjaman ini ditujukan khusus untuk Bapak/Ibu pegawai yang ingin mengembangkan usaha produktifnya.</p>
+      <h3>Siapa yang Bisa Mengajukan:</h3>
+      <p>Pegawai Negeri Sipil (PNS), Calon PNS, Pensiunan, Pegawai Kantor Pusat, Pegawai BUMN/BUMD, Anggota DPRD, TNI, Polri, Kepala Daerah, Wakil Kepala Daerah, dan Pegawai Perusahaan.</p>
+      <ul>
+        <li>Tujuan: Untuk investasi usaha (misal beli mesin) atau menambah modal kerja usaha.</li>
+        <li>Besar Pinjaman: Didasarkan pada kemampuan mencicil, maksimal 80% dari penghasilan bersih bulanan.</li>
+        <li>Jaminan: Tidak diwajibkan bagi PNS, CPNS, Pensiunan, Kepala Daerah, Wakil Kepala Daerah, dan Anggota DPRD jika gaji disalurkan melalui Bank Kalteng dan pinjaman diasuransikan. Namun, jaminan wajib diserahkan bagi Pegawai BUMN/BUMD, TNI, Polri, Pegawai Kantor Pusat, dan Pegawai Perusahaan.</li>
+        <li>Bunga: Ringan dan bersaing.</li>
+      </ul>
+      <h3>Jangka Waktu Pinjaman:</h3>
+      <ul>
+        <li>Maksimal 15 tahun untuk PNS, CPNS, TNI, Polri, Pegawai BUMN/BUMD, dan Pegawai Kantor Pusat (disesuaikan dengan usia pensiun normal).</li>
+        <li>Maksimal 5 tahun untuk Anggota DPRD, Kepala Daerah, Wakil Kepala Daerah, dan Pegawai Perusahaan (disesuaikan dengan berakhirnya masa tugas).</li>
+        <li>Bagi Pensiunan, jangka waktu maksimal 15 tahun dengan batas usia saat jatuh tempo kredit maksimal 70 tahun.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-perorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Perorangan
+    </button>
+  </div>
+
+  <div id="page-kredit-pemerintah-daerah-detail" class="page">
+    <h2>Kredit Kepada Pemerintah Daerah</h2>
+    <div class="product-description">
+      <p>Ini adalah fasilitas pembayaran non-tunai berupa Kartu Kredit Pemerintah Daerah (KKPD) yang diserahkan oleh Bank Kalteng kepada Organisasi Perangkat Daerah (OPD) di lingkungan pemerintah daerah. Tujuannya untuk meningkatkan efisiensi, transparansi, dan akuntabilitas dalam pengelolaan keuangan daerah. Dengan KKPD, transaksi belanja pemerintah bisa dilakukan secara non-tunai, sehingga mengurangi penggunaan uang tunai serta mempercepat proses pembayaran dan realisasi anggaran. KKPD juga diharapkan dapat mengurangi potensi penyalahgunaan anggaran dan meningkatkan pengawasan dalam pengelolaan keuangan daerah.</p>
+      <p>Untuk informasi lebih lanjut, Bapak/Ibu dapat menghubungi pihak Bank Kalteng secara langsung.</p>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-nonperorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Non-perorangan
+    </button>
+  </div>
+
+  <div id="page-kredit-sindikasi-detail" class="page">
+    <h2>Kredit Sindikasi</h2>
+    <div class="product-description">
+      <p>Kredit Sindikasi adalah pinjaman yang diberikan oleh beberapa bank (termasuk Bank Kalteng) secara bersama-sama kepada satu nasabah, biasanya untuk proyek besar atau pembangunan infrastruktur dengan nilai yang sangat besar. Tujuannya adalah untuk membantu nasabah yang membutuhkan pinjaman dalam jumlah besar yang sulit dibiayai sendiri oleh satu bank.</p>
+      <h3>Berapa Besar Pinjamannya (Plafon Kredit):</h3>
+      <p>Jumlah pinjaman ditentukan berdasarkan kelayakan proyek dan kesepakatan semua bank yang ikut serta dalam sindikasi.</p>
+      <h3>Apa Saja yang Bisa Dijadikan Jaminan (Agunan):</h3>
+      <p>Jaminan disesuaikan dengan kesepakatan semua bank yang terlibat. Jika ada jaminan fisik, pembagian hasil dari penjualan jaminan akan dilakukan secara proporsional sesuai dengan porsi pinjaman masing-masing bank. Pengikatan jaminan dilakukan sesuai dengan peraturan perundang-undangan yang berlaku.</p>
+      <h3>Berapa Lama Waktu Pinjamannya (Jangka Waktu):</h3>
+      <p>Jangka waktu pinjaman disesuaikan dengan kelayakan proyek dan kesepakatan semua bank yang ikut sindikasi.</p>
+      <h3>Jenis Sindikasi:</h3>
+      <ul>
+        <li>**Club Deal**: Sindikasi yang diikuti oleh 2 atau 3 lembaga keuangan.</li>
+        <li>**Konsorsium**: Sindikasi yang diikuti oleh lebih dari 2 lembaga keuangan.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-nonperorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Non-perorangan
+    </button>
+  </div>
+
+  <div id="page-garansi-bank-detail" class="page">
+    <h2>Garansi Bank</h2>
+    <div class="product-description">
+      <p>Garansi Bank adalah jaminan pembayaran yang diberikan oleh Bank Kalteng kepada pihak ketiga (penerima jaminan), atas permintaan nasabah, untuk menjamin bahwa nasabah akan memenuhi kewajibannya. Jika nasabah tidak memenuhi kewajibannya, Bank Kalteng akan membayar sejumlah uang kepada penerima jaminan. Ini penting untuk memastikan kelancaran transaksi atau proyek Bapak/Ibu.</p>
+      <h3>Jenis-jenis Garansi Bank:</h3>
+      <ul>
+        <li>Jaminan Penawaran (Bid Bond): Untuk ikut lelang atau tender.</li>
+        <li>Jaminan Pelaksanaan (Performance Bond): Menjamin pelaksanaan proyek sesuai kontrak.</li>
+        <li>Jaminan Uang Muka (Advance Payment Bond): Menjamin pengembalian uang muka jika proyek tidak berjalan.</li>
+        <li>Jaminan Pemeliharaan (Maintenance Bond): Menjamin pemeliharaan setelah proyek selesai.</li>
+        <li>Jaminan Sanggah Banding: Untuk keperluan sanggah banding dalam proses lelang.</li>
+        <li>Jaminan Pembayaran: Menjamin pembayaran suatu kewajiban.</li>
+        <li>Jaminan Pembelian/Penjualan barang/jasa.</li>
+        <li>Jaminan Lainnya: Sesuai kebutuhan yang tercantum dalam kontrak atau perjanjian.</li>
+      </ul>
+      <h3>Apa Saja yang Bisa Dijadikan Jaminan (Agunan):</h3>
+      <ul>
+        <li>Untuk proyek yang didanai APBN, APBD, BUMN, dan BUMD, tidak selalu wajib ada agunan jika sudah dijamin oleh perusahaan penjamin.</li>
+        <li>Jika memberikan agunan fisik (misalnya tanah atau bangunan), nilainya minimal harus 125% dari nilai garansi bank.</li>
+        <li>Jika menggunakan Cash Collateral (dana tunai di Bank), nilainya minimal 100% dari nilai garansi bank.</li>
+      </ul>
+      <h3>Berapa Lama Waktu Garansi (Jangka Waktu):</h3>
+      <ul>
+        <li>Jaminan Penawaran: Maksimal 30 hari kalender sejak penawaran dilakukan.</li>
+        <li>Jaminan Pelaksanaan: Minimal 14 hari kalender sejak tanggal kontrak sampai proyek berakhir.</li>
+        <li>Jaminan Uang Muka: Disesuaikan dengan jangka waktu proyek.</li>
+        <li>Jaminan Pemeliharaan: Disesuaikan dengan jangka waktu pemeliharaan.</li>
+        <li>Jaminan Lainnya: Disesuaikan dengan jangka waktu yang tercantum dalam kontrak atau perjanjian.</li>
+      </ul>
+    </div>
+    <button class="button back-button" onclick="showPage('page-pinjaman-nonperorangan')">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pinjaman Non-perorangan
+    </button>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Bank Kalteng</p>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0); // Gulir ke atas halaman saat pindah halaman
+    }
+  </script>
+</body>
+</html>
